@@ -1,0 +1,1485 @@
+Index: src/main/resources/templates/Manage_Products.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_Products.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_Products.html	(date 1585836645521)
+@@ -5,7 +5,12 @@
+ 	<title>Products Manager</title>
+ </head>
+ <body>
+-	<div th:replace="header"></div>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div align="center">
+ 		<h3>Products List</h3>
+ <!-- 		<a href="/newProduct">Add New Product</a> <br /> -->
+@@ -47,4 +52,4 @@
+ 		</table>
+ 	</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/resources/templates/Add_NewEmployee.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Add_NewEmployee.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Add_NewEmployee.html	(date 1585835544201)
+@@ -49,6 +49,16 @@
+ 					<td><input type="text" th:field="*{Password}" /></td>
+ 				</tr>
+ 				<tr>
++					<td>Role:</td>
++					<td>
++						<select th:field="*{Role}">
++							<option th:value="ADMIN" th:text="ADMIN">ADMIN</option>
++							<option th:value="MANAGER" th:text="MANAGER">MANAGER</option>
++							<option th:value="EMPLOYEE" th:text="EMPLOYEE">EMPLOYEE</option>
++						</select>
++					</td>
++				</tr>
++				<tr>
+ 					<td>Reported To Person:</td>
+ 					<td>
+ 						<input type="hidden" th:field="*{ReportToid}" id="ReportedPersonId">
+@@ -79,4 +89,4 @@
+ 	});
+ 	
+ </script>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/resources/templates/Manage_Employees.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_Employees.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_Employees.html	(date 1585836645540)
+@@ -5,46 +5,53 @@
+ 	<title>Manage Employees</title>
+ </head>
+ <body>
++<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+ 	<div th:replace="header"></div>
+-	<div align="center">
+-		<h3>Manage Employees</h3>
+-<!-- 		<a href="/new">Add New Employee</a> <br /> -->
+-<!-- 		<br /> -->
+-		<table border="1" cellpadding="10">
+-			<thead>
+-				<tr>
+-					<th>Employee ID</th>
+-					<th>First Name</th>
+-					<th>Last Name</th>
+-					<th>Designation</th>
+-					<th>Responsibility</th>
+-					<th>Reported Person</th>
+-					<th>Email</th>
+-					<th>Phone Number</th>
+-					<th>Address</th>
+-					<th>Actions</th>
+-				</tr>
+-			</thead>
+-			<tbody>
+-				<tr th:each="Employees : ${Employeeslist}">
+-					<td th:text="${Employees.id}">Employee ID</td>
+-					<td th:text="${Employees.First_name}">First Name</td>
+-					<td th:text="${Employees.Last_name}">Last Name</td>
+-					<td th:text="${Employees.Designation}">Designation</td>
+-					<td th:text="${Employees.Responsibility}">Responsibility</td>
+-					<td th:text="${Employees.ReportToPerson}">ReportToPerson</td>
+-					<td th:text="${Employees.Email}">Email</td>
+-					<td th:text="${Employees.PhoneNo}">Phone Number</td>
+-					<td th:text="${Employees.Address}">Address</td>
+-					
+-					<td>
+-						<a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
+-						&nbsp;&nbsp;&nbsp; 
+-						<a th:href="@{'/delete/' + ${Employees.id}}">Delete</a>
+-					</td>
+-				</tr>
+-			</tbody>
+-		</table>
+-	</div>
++</div>
++<div th:if="${Role == 'MANAGER'}">
++	<div th:replace="header_manager"></div>
++</div>
++<div align="center">
++	<h3>Manage Employees</h3>
++	<!-- 		<a href="/new">Add New Employee</a> <br /> -->
++	<!-- 		<br /> -->
++	<table border="1" cellpadding="10">
++		<thead>
++		<tr>
++			<th>Employee ID</th>
++			<th>First Name</th>
++			<th>Last Name</th>
++			<th>Designation</th>
++			<th>Responsibility</th>
++			<th>Reported Person</th>
++			<th>Email</th>
++			<th>Phone Number</th>
++			<th>Address</th>
++			<th>Role</th>
++			<th>Actions</th>
++		</tr>
++		</thead>
++		<tbody>
++		<tr th:each="Employees : ${Employeeslist}">
++			<td th:text="${Employees.id}">Employee ID</td>
++			<td th:text="${Employees.First_name}">First Name</td>
++			<td th:text="${Employees.Last_name}">Last Name</td>
++			<td th:text="${Employees.Designation}">Designation</td>
++			<td th:text="${Employees.Responsibility}">Responsibility</td>
++			<td th:text="${Employees.ReportToPerson}">ReportToPerson</td>
++			<td th:text="${Employees.Email}">Email</td>
++			<td th:text="${Employees.PhoneNo}">Phone Number</td>
++			<td th:text="${Employees.Address}">Address</td>
++			<td th:text="${Employees.Role}">Role</td>
++
++			<td>
++				<a th:href="@{'/edit/' + ${Employees.id}}">Edit</a>
++				&nbsp;&nbsp;&nbsp;
++				<a th:href="@{'/delete/' + ${Employees.id}}">Delete</a>
++			</td>
++		</tr>
++		</tbody>
++	</table>
++</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/resources/templates/Manage_Hierarchy.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_Hierarchy.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_Hierarchy.html	(date 1585836645504)
+@@ -6,7 +6,12 @@
+ <title>Manage Hierarchy</title>
+ </head>
+ <body>
+-	<div th:replace="header"></div>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div align="center">
+ 		<h3>Manage Hierarchy</h3>
+ 		<table border="1" cellpadding="10">
+@@ -41,4 +46,4 @@
+ 		</table>
+ 	</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/resources/templates/Manage_Financial_Resources.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_Financial_Resources.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_Financial_Resources.html	(date 1585836645552)
+@@ -5,7 +5,12 @@
+ 	<title>Financial Resources</title>
+ </head>
+ <body>
+-	<div th:replace="header"></div>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div align="center">
+ 		<h3>Financial Resources</h3>
+ 		<!-- <a href="/NewResources">Add Financial Details</a> <br /> -->
+@@ -51,4 +56,4 @@
+ 		</table>
+ 	</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/resources/templates/Manage_ProductionSteps.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_ProductionSteps.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_ProductionSteps.html	(date 1585836645510)
+@@ -5,7 +5,12 @@
+ 	<title>Manager Production Steps</title>
+ </head>
+ <body>
+-	<div th:replace="header"></div>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div align="center">
+ 		<h3>Production Step</h3>
+ <!-- 		<a href="/newProductionStep">Add New Production Step</a> <br /> -->
+@@ -36,4 +41,4 @@
+ 		</table>
+ 	</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/java/BIA/Business/Impact/Analysis/Repository/EmployeesRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Repository/EmployeesRepository.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Repository/EmployeesRepository.java	(date 1585835382565)
+@@ -4,7 +4,7 @@
+ 
+ import BIA.Business.Impact.Analysis.Model.Employees;
+ 
+-public interface EmployeesRepository extends MongoRepository<Employees, Integer> {
++public interface EmployeesRepository extends MongoRepository<Employees, String> {
+ 
+ }
+ 
+Index: src/main/resources/templates/Dashboard.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Dashboard.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Dashboard.html	(date 1585835556871)
+@@ -1,11 +1,16 @@
+ <!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+-<head>   
++<head>
+ 	<meta charset="ISO-8859-1">
+ 	<title>Dashboard</title>
+ </head>
+ 
+-<body>  
++<body>
++<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+ 	<div th:replace="header"></div>
++</div>
++<div th:if="${Role == 'MANAGER'}">
++	<div th:replace="header_manager"></div>
++</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/java/BIA/Business/Impact/Analysis/Repository/GenerateHierarchyRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Repository/GenerateHierarchyRepository.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Repository/GenerateHierarchyRepository.java	(date 1585837158283)
+@@ -3,6 +3,6 @@
+ import org.springframework.data.mongodb.repository.MongoRepository;
+ import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
+ 
+-public interface GenerateHierarchyRepository extends MongoRepository<GenerateHierarchy, Integer> {
++public interface GenerateHierarchyRepository extends MongoRepository<GenerateHierarchy, String> {
+ 
+-}
+\ No newline at end of file
++}
+Index: src/main/resources/templates/Hierarchy.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/Hierarchy.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Hierarchy.html	(date 1585836734051)
+@@ -5,11 +5,16 @@
+ 	<title>Hierarchy</title>
+ 	<link rel="stylesheet" href="@{/static/bootstrap4/css/bootstrap.min.css}" />
+ </head>
+-<body>  
+-	<div th:replace="header"></div>
++<body>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div><br><br>
+     	<h3>Hierarchy</h3>
+        	<section th:include="@{fragment} :: category" th:with="HierarchyList=${HierarchyList}"></section>
+     </div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/java/BIA/Business/Impact/Analysis/Model/Role.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Model/Role.java	(date 1585835088290)
++++ src/main/java/BIA/Business/Impact/Analysis/Model/Role.java	(date 1585835088290)
+@@ -0,0 +1,5 @@
++package BIA.Business.Impact.Analysis.Model;
++
++public enum Role {
++    ADMIN, MANAGER, EMPLOYEE
++}
+Index: src/main/java/BIA/Business/Impact/Analysis/Exception/NotSufficientRightsException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Exception/NotSufficientRightsException.java	(date 1585828926924)
++++ src/main/java/BIA/Business/Impact/Analysis/Exception/NotSufficientRightsException.java	(date 1585828926924)
+@@ -0,0 +1,11 @@
++package BIA.Business.Impact.Analysis.Exception;
++
++public class NotSufficientRightsException extends RuntimeException {
++    public NotSufficientRightsException() {
++        super("You don't have enough rights to perform this operation");
++    }
++
++    public NotSufficientRightsException(String message) {
++        super(message);
++    }
++}
+Index: src/main/resources/templates/header_manager.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/resources/templates/header_manager.html	(date 1585831779271)
++++ src/main/resources/templates/header_manager.html	(date 1585831779271)
+@@ -0,0 +1,39 @@
++<!DOCTYPE html>
++<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
++<head>
++	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
++	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
++	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
++	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
++</head>
++<div th:fragment="head">
++	<nav class="navbar navbar-expand-lg navbar-light bg-light">
++		<a class="navbar-brand" href="/"><b>Business Impact Analysis</b></a>
++	  	<div class="collapse navbar-collapse" id="navbarNavDropdown">
++	  		<ul class="navbar-nav">
++	      		<li class="nav-item dropdown">
++	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
++	          			Manage Dropdown List
++	        		</a>
++			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
++			        	<a class="dropdown-item" href="/manageEmployees">Manage Employees</a>
++			          	<a class="dropdown-item" href="/Productslist">Manage Products</a>
++			          	<a class="dropdown-item" href="/ProductionStepslist">Manage Production Step</a>
++			          	<a class="dropdown-item" href="/Resourceslist">Manage Financial Resources</a>
++			          	<a class="dropdown-item" href="/ProductsCategorylist">Manage Product Category</a>
++			          	<a class="dropdown-item" href="/Departmentslist">Manage Departments</a>
++			          	<a class="dropdown-item" href="/manageHierarchy">Manage Hierarchy</a>
++			        </div>
++	      		</li>
++	      		<li class="nav-item dropdown">
++	        		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
++	          			View Hierarchy
++	        		</a>
++			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
++			        	<a class="dropdown-item" href="/viewHierarchy">View Hierarchy</a>
++			        </div>
++	      		</li>
++	    	</ul>
++	  	</div>
++	</nav>
++</div>
+Index: src/main/java/BIA/Business/Impact/Analysis/Validator/RoleValidator.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Validator/RoleValidator.java	(date 1585829522843)
++++ src/main/java/BIA/Business/Impact/Analysis/Validator/RoleValidator.java	(date 1585829522843)
+@@ -0,0 +1,21 @@
++package BIA.Business.Impact.Analysis.Validator;
++
++import BIA.Business.Impact.Analysis.Exception.NotSufficientRightsException;
++import BIA.Business.Impact.Analysis.Model.Employees;
++import BIA.Business.Impact.Analysis.Model.Role;
++
++import javax.servlet.http.HttpServletRequest;
++import javax.servlet.http.HttpSession;
++
++public class RoleValidator {
++
++    public static final String SESSION_ME = "ME";
++
++    public static void checkUserRights(HttpServletRequest request, Role requiredRole) {
++        HttpSession session = request.getSession();
++        Employees me = (Employees) session.getAttribute(SESSION_ME);
++        if (me.getRole() != requiredRole && me.getRole() != Role.ADMIN) {
++            throw new NotSufficientRightsException();
++        }
++    }
++}
+Index: src/main/java/BIA/Business/Impact/Analysis/Service/GenerateHierarchyService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Service/GenerateHierarchyService.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Service/GenerateHierarchyService.java	(date 1585835423435)
+@@ -24,11 +24,11 @@
+ 		repo.save(GenerateHierarchy);
+ 	}
+ 
+-	public GenerateHierarchy get(int id) {
++	public GenerateHierarchy get(String id) {
+ 		return repo.findById(id).get();
+ 	}
+ 
+-	public void delete(int id) {
++	public void delete(String id) {
+ 		repo.deleteById(id);
+ 	}
+ }
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/DashboardController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/DashboardController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/DashboardController.java	(date 1585829720481)
+@@ -1,9 +1,12 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
++import BIA.Business.Impact.Analysis.Model.Employees;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ 
++import javax.servlet.http.HttpServletRequest;
++
+ /**
+  *
+  * @date 2020/02/26 16:30:10
+@@ -19,7 +22,9 @@
+ 	 * @return the dashboard page name String. Which have the navigation bar for all URLs.
+ 	 */
+ 	@RequestMapping("/")
+-	public String viewDashboard() {
++	public String viewDashboard(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		return "Dashboard";
+ 	}
+ }
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/ResourcesController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/ResourcesController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/ResourcesController.java	(date 1585836645493)
+@@ -1,21 +1,23 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.List;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.web.bind.annotation.ModelAttribute;
+-import org.springframework.web.bind.annotation.PathVariable;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RequestMethod;
+-import org.springframework.web.servlet.ModelAndView;
+-
+ import BIA.Business.Impact.Analysis.Model.Employees;
+ import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+ import BIA.Business.Impact.Analysis.Model.Resources;
++import BIA.Business.Impact.Analysis.Model.Role;
+ import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+ import BIA.Business.Impact.Analysis.Service.ResourcesService;
+-
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
++import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.ModelAttribute;
++import org.springframework.web.bind.annotation.PathVariable;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RequestMethod;
++import org.springframework.web.servlet.ModelAndView;
++
++import javax.servlet.http.HttpServletRequest;
++import java.util.List;
+ 
+ @Controller
+ public class ResourcesController {
+@@ -27,14 +29,17 @@
+ 	private ProductionStepsService service1;
+ 
+ 	@RequestMapping("/Resourceslist")
+-	public String viewHomePage(Model model) {
++	public String viewHomePage(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<Resources> Resourceslist = service.listAll();
+ 		model.addAttribute("Resourceslist", Resourceslist);
+ 		return "Manage_Financial_Resources";
+ 	}
+ 
+ 	@RequestMapping("/NewResources")
+-	public String showNewResourcesPage(Model model) {
++	public String showNewResourcesPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		Resources Resources = new Resources();
+ 		model.addAttribute("Resources", Resources);
+ 		List<ProductionSteps> ProductionSteps = service1.listAll();
+@@ -44,13 +49,15 @@
+ 	}
+ 
+ 	@RequestMapping(value = "/saveResources", method = RequestMethod.POST)
+-	public String saveResources(@ModelAttribute("Resources") Resources Resources) {
++	public String saveResources(@ModelAttribute("Resources") Resources Resources, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		service.save(Resources);
+ 		return "redirect:/Resourceslist";
+ 	}
+ 
+ 	@RequestMapping("/EditResources/{id}")
+-	public ModelAndView showEditResourcePage(@PathVariable(name = "id") String id) {
++	public ModelAndView showEditResourcePage(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		ModelAndView mav = new ModelAndView("Edit_Recourses");
+ 		Resources Resources = service.get(id);
+ 		mav.addObject("Resources", Resources);
+@@ -58,7 +65,8 @@
+ 	}
+ 
+ 	@RequestMapping("/DeleteResources/{id}")
+-	public String deleteResources(@PathVariable(name = "id") String id) {
++	public String deleteResources(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		service.delete(id);
+ 		return "redirect:/Resourceslist";
+ 	}
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/ProductsController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/ProductsController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/ProductsController.java	(date 1585836645517)
+@@ -1,24 +1,21 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.List;
++import BIA.Business.Impact.Analysis.Model.*;
++import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
++import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
++import BIA.Business.Impact.Analysis.Service.ProductsService;
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+ import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.ModelAttribute;
+ import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
+ import org.springframework.web.servlet.ModelAndView;
+ 
+-import BIA.Business.Impact.Analysis.Model.Employees;
+-import BIA.Business.Impact.Analysis.Model.ProductCategory;
+-import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+-import BIA.Business.Impact.Analysis.Model.Products;
+-import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
+-import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+-import BIA.Business.Impact.Analysis.Service.ProductsService;
+-
+-import org.springframework.stereotype.Controller;
+-
+-import org.springframework.ui.Model;
++import javax.servlet.http.HttpServletRequest;
++import java.util.List;
+ 
+ @Controller("/products")
+ public class ProductsController {
+@@ -33,7 +30,9 @@
+ 	private ProductCategoryService service2;
+ 
+ 	@RequestMapping("/Productslist")
+-	public String viewHomePage(Model model) {
++	public String viewHomePage(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<Products> Productslist = service.listAll();
+ 		model.addAttribute("Productslist", Productslist);
+ 		
+@@ -41,7 +40,8 @@
+ 	}
+ 
+ 	@RequestMapping("/newProduct")
+-	public String showNewProductsPage(Model model) {
++	public String showNewProductsPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		Products Products = new Products();
+ 		model.addAttribute("Products", Products);
+ 		
+@@ -55,7 +55,8 @@
+ 	}
+ 
+ 	@RequestMapping(value = "/saveProduct", method = RequestMethod.POST)
+-	public String saveProduct(@ModelAttribute("Products") Products Products) {
++	public String saveProduct(@ModelAttribute("Products") Products Products, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		service.save(Products);
+ 		return "redirect:/newProductCategory";
+ 	}
+@@ -68,7 +69,8 @@
+ 	 */
+ 
+ 	@RequestMapping("/editproduct/{id}")
+-	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id) {
++	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		ModelAndView mav = new ModelAndView("Edit_Products");
+ 		Products Products = service.get(id);
+ 		mav.addObject("Products", Products);
+@@ -76,7 +78,8 @@
+ 	}
+ 
+ 	@RequestMapping("/deleteProduct/{id}")
+-	public String deleteProducts(@PathVariable(name = "id") String id) {
++	public String deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		service.delete(id);
+ 		return "redirect:/Productslist";
+ 	}
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/LoginController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/LoginController.java	(date 1585834799675)
+@@ -1,24 +1,17 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.io.IOException;
+-import java.util.List;
+-
+-import javax.servlet.http.HttpServletRequest;
+-import javax.servlet.http.HttpSession;
+-
++import BIA.Business.Impact.Analysis.Model.Employees;
++import BIA.Business.Impact.Analysis.Service.EmployeesService;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.GetMapping;
+-import org.springframework.web.bind.annotation.ModelAttribute;
+-import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.PostMapping;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RequestMethod;
+ import org.springframework.web.bind.annotation.RequestParam;
+ 
+-import BIA.Business.Impact.Analysis.Model.Employees;
+-import BIA.Business.Impact.Analysis.Service.EmployeesService;
++import javax.servlet.http.HttpServletRequest;
++import javax.servlet.http.HttpSession;
++import java.io.IOException;
+ 
+ 
+ @Controller
+@@ -35,7 +28,7 @@
+ 	}
+ 
+ 	@PostMapping("/login")
+-	public String postlogIn(HttpServletRequest request, @RequestParam("id") int id, @RequestParam("p") String password,
++	public String postlogIn(HttpServletRequest request, @RequestParam("id") String id, @RequestParam("p") String password,
+ 			Model model) throws IOException {
+ 		String msg = null;
+ 		try {
+Index: src/main/java/BIA/Business/Impact/Analysis/Model/Employees.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Model/Employees.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Model/Employees.java	(date 1585836100351)
+@@ -1,17 +1,13 @@
+ package BIA.Business.Impact.Analysis.Model;
+ 
+-import java.util.List;
+-
+-import javax.persistence.Column;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.GenerationType;
+-
+ import org.springframework.data.annotation.Id;
+ import org.springframework.data.mongodb.core.mapping.Document;
+ 
++import java.util.List;
++
+ /**
+- * 
+- * 
++ *
++ *
+  * here, In Employee model class we added the 2 new key named ReportToPerson and
+  * SunEmployees and generated the getter setter method for it. Also, we updated
+  * the datatype for ReportToid with int eariler it was string.
+@@ -19,8 +15,8 @@
+ @Document(collection = "Employees")
+ public class Employees {
+ 	@Id
+-	
+-	private int id;
++
++	private String id;
+ 	private String First_name;
+ 	private String Last_name;
+ 	private String Designation;
+@@ -28,10 +24,11 @@
+ 	private String Email;
+ 	private int PhoneNo;
+ 	private String Address;
+-	private int ReportToid;
++	private String ReportToid;
+ 	private String ReportToPerson;
+ 	private List<Employees> SubEmployees;
+ 	private String Password;
++	private Role Role;
+ 
+ 	public int getPhoneNo() {
+ 		return PhoneNo;
+@@ -59,11 +56,11 @@
+ 
+ 
+ 
+-	public int getId() {
++	public String getId() {
+ 		return id;
+ 	}
+ 
+-	public void setId(int id) {
++	public void setId(String id) {
+ 		this.id = id;
+ 	}
+ 
+@@ -99,11 +96,11 @@
+ 		Responsibility = responsibility;
+ 	}
+ 
+-	public int getReportToid() {
++	public String getReportToid() {
+ 		return ReportToid;
+ 	}
+ 
+-	public void setReportToid(int reportToid) {
++	public void setReportToid(String reportToid) {
+ 		ReportToid = reportToid;
+ 	}
+ 
+@@ -130,5 +127,12 @@
+ 	public void setPassword(String password) {
+ 		Password = password;
+ 	}
+-	
++
++	public BIA.Business.Impact.Analysis.Model.Role getRole() {
++		return Role;
++	}
++
++	public void setRole(BIA.Business.Impact.Analysis.Model.Role role) {
++		Role = role;
++	}
+ }
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/ProductCategoryController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/ProductCategoryController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/ProductCategoryController.java	(date 1585836645514)
+@@ -1,20 +1,21 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.List;
++import BIA.Business.Impact.Analysis.Model.Employees;
++import BIA.Business.Impact.Analysis.Model.ProductCategory;
++import BIA.Business.Impact.Analysis.Model.Role;
++import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+ import org.springframework.beans.factory.annotation.Autowired;
++import org.springframework.stereotype.Controller;
++import org.springframework.ui.Model;
+ import org.springframework.web.bind.annotation.ModelAttribute;
+ import org.springframework.web.bind.annotation.PathVariable;
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
+ import org.springframework.web.servlet.ModelAndView;
+ 
+-import BIA.Business.Impact.Analysis.Model.ProductCategory;
+-
+-import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
+-
+-import org.springframework.stereotype.Controller;
+-
+-import org.springframework.ui.Model;
++import javax.servlet.http.HttpServletRequest;
++import java.util.List;
+ 
+ @Controller("/ProductCategory")
+ public class ProductCategoryController {
+@@ -23,7 +24,9 @@
+ 	private ProductCategoryService service;
+ 
+ 	@RequestMapping("/ProductsCategorylist")
+-	public String viewHomePage(Model model) {
++	public String viewHomePage(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<ProductCategory> ProductCategorylist = service.listAll();
+ 		model.addAttribute("ProductCategorylist", ProductCategorylist);
+ 
+@@ -31,7 +34,8 @@
+ 	}
+ 
+ 	@RequestMapping("/newProductCategory")
+-	public String showNewProductsPage(Model model) {
++	public String showNewProductsPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		ProductCategory ProductCategory = new ProductCategory();
+ 		model.addAttribute("ProductCategory", ProductCategory);
+ 
+@@ -40,20 +44,26 @@
+ 
+ 	
+ 	  @RequestMapping(value = "/saveProductCategory", method = RequestMethod.POST) public
+-	  String saveProduct(@ModelAttribute("ProductCategory") ProductCategory ProductCategory) {
+-	  service.save(ProductCategory); return "redirect:/newProductionStep"; }
++	  String saveProduct(@ModelAttribute("ProductCategory") ProductCategory ProductCategory, HttpServletRequest request) {
++		  RoleValidator.checkUserRights(request, Role.EMPLOYEE);
++		  service.save(ProductCategory); return "redirect:/newProductionStep";
++	}
+ 	  
+ 	  
+ 	  
+ 	
+-	  @RequestMapping("/editProductCategory/{id}") public ModelAndView
+-	  showEditProductPage(@PathVariable(name = "id") String id) { ModelAndView mav =
+-	  new ModelAndView("Edit_ProductCategory"); ProductCategory ProductCategory = service.get(id);
++	  @RequestMapping("/editProductCategory/{id}") public ModelAndView showEditProductPage(@PathVariable(name = "id") String id,
++																						   HttpServletRequest request) {
++		  RoleValidator.checkUserRights(request, Role.MANAGER);
++		ModelAndView mav = new ModelAndView("Edit_ProductCategory");
++		ProductCategory ProductCategory = service.get(id);
+ 	  mav.addObject("ProductCategory", ProductCategory); return mav; }
+ 	  
+ 	  
+ 	  @RequestMapping("/deleteProductCategory/{id}") public String
+-	  deleteProducts(@PathVariable(name = "id") String id) { service.delete(id);
++	  deleteProducts(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		  RoleValidator.checkUserRights(request, Role.MANAGER);
++		service.delete(id);
+ 	  return "redirect:/ProductsCategorylist"; }
+ 	 
+ 	 
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/ProductionStepsController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/ProductionStepsController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/ProductionStepsController.java	(date 1585836645526)
+@@ -1,21 +1,22 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.List;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.web.bind.annotation.ModelAttribute;
+-import org.springframework.web.bind.annotation.PathVariable;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RequestMethod;
+-import org.springframework.web.servlet.ModelAndView;
+-
+ import BIA.Business.Impact.Analysis.Model.Employees;
+ import BIA.Business.Impact.Analysis.Model.ProductionSteps;
++import BIA.Business.Impact.Analysis.Model.Role;
+ import BIA.Business.Impact.Analysis.Service.EmployeesService;
+ import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+-
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
++import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+-
+ import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.ModelAttribute;
++import org.springframework.web.bind.annotation.PathVariable;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RequestMethod;
++import org.springframework.web.servlet.ModelAndView;
++
++import javax.servlet.http.HttpServletRequest;
++import java.util.List;
+ 
+ @Controller("/ProductionSteps")
+ public class ProductionStepsController {
+@@ -27,14 +28,17 @@
+ 	private EmployeesService service1;
+ 
+ 	@RequestMapping("/ProductionStepslist")
+-	public String viewHomePage(Model model) {
++	public String viewHomePage(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<ProductionSteps> ProductionStepslist = service.listAll();
+ 		model.addAttribute("ProductionStepslist", ProductionStepslist);
+ 		return "Manage_ProductionSteps";
+ 	}
+ 
+ 	@RequestMapping("/newProductionStep")
+-	public String showNewProductionStepsPage(Model model) {
++	public String showNewProductionStepsPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		ProductionSteps ProductionSteps = new ProductionSteps();
+ 		model.addAttribute("ProductionSteps", ProductionSteps);
+ 		
+@@ -52,14 +56,16 @@
+ 	 */
+ 	
+ 	@RequestMapping(value = "/saveProductionStep", method = RequestMethod.POST)
+-	public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps ProductionSteps) {
++	public String saveProduct(@ModelAttribute("ProductionSteps") ProductionSteps ProductionSteps, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		service.save(ProductionSteps);
+ 		return "redirect:/newProductionStep";
+ 	}
+ 	
+ 
+ 	@RequestMapping("/editProductionStep/{id}")
+-	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id) {
++	public ModelAndView showEditProductPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		ModelAndView mav = new ModelAndView("Edit_ProductionSteps");
+ 		
+ 		ProductionSteps ProductionSteps = service.get(id);
+@@ -70,8 +76,9 @@
+ 	}
+ 
+ 	@RequestMapping("/deleteProductionStep/{id}")
+-	public String deleteProductionSteps(@PathVariable(name = "id") String id) {
++	public String deleteProductionSteps(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		service.delete(id);
+ 		return "redirect:/ProductionStepslist";
+ 	}
+-}
+\ No newline at end of file
++}
+Index: src/main/java/BIA/Business/Impact/Analysis/Service/EmployeesService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Service/EmployeesService.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Service/EmployeesService.java	(date 1585835397306)
+@@ -24,11 +24,11 @@
+ 		repo.save(Employees);
+ 	}
+ 
+-	public Employees get(int id) {
++	public Employees get(String id) {
+ 		return repo.findById(id).get();
+ 	}
+ 
+-	public void delete(int id) {
++	public void delete(String id) {
+ 		repo.deleteById(id);
+ 	}
+ }
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/EmployeesController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/EmployeesController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/EmployeesController.java	(date 1585836645544)
+@@ -1,7 +1,9 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.List;
+-
++import BIA.Business.Impact.Analysis.Model.Employees;
++import BIA.Business.Impact.Analysis.Model.Role;
++import BIA.Business.Impact.Analysis.Service.EmployeesService;
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+@@ -10,8 +12,8 @@
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
+ 
+-import BIA.Business.Impact.Analysis.Model.Employees;
+-import BIA.Business.Impact.Analysis.Service.EmployeesService;
++import javax.servlet.http.HttpServletRequest;
++import java.util.List;
+ 
+ /**
+  * @date 2020/02/26 16:30:10
+@@ -35,17 +37,20 @@
+ 	 *         Here, We added the updated page name in return string.
+ 	 */
+ 	@RequestMapping("/manageEmployees")
+-	public String viewHomePage(Model model) {
++	public String viewHomePage(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<Employees> Employeeslist = service.listAll();
+ 		model.addAttribute("Employeeslist", Employeeslist);
+ 		return "Manage_Employees";
+ 	}
+ 
+ 	@RequestMapping("/new")
+-	public String showNewEmployeesPage(Model model) {
++	public String showNewEmployeesPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		Employees Employees = new Employees();
+ 		model.addAttribute("Employees", Employees);
+-		List<Employees> Employeeslist = service.listAll();
++		List<BIA.Business.Impact.Analysis.Model.Employees> Employeeslist = service.listAll();
+ 		model.addAttribute("Employeeslist", Employeeslist);
+ 		return "Add_NewEmployee";
+ 	}
+@@ -61,17 +66,19 @@
+ 	 *         index page.
+ 	 */
+ 	@RequestMapping(value = "/save", method = RequestMethod.POST)
+-	public String saveEmployee(@ModelAttribute("Employees") Employees Employees) {
++	public String saveEmployee(@ModelAttribute("Employees") Employees Employees, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		service.save(Employees);
+ 		return "redirect:/manageEmployees";
+ 	}
+ 
+ 	@RequestMapping("/edit/{id}")
+-	public String showEditEmployeePage(@PathVariable(name = "id") int id, Model model) {
+-//		ModelAndView mav = new ModelAndView("Edit_Employees"); 
++	public String showEditEmployeePage(@PathVariable(name = "id") String id, Model model, HttpServletRequest request) {
++//		ModelAndView mav = new ModelAndView("Edit_Employees");
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		Employees Employees = service.get(id);
+ 		model.addAttribute("Employees", Employees);
+-		List<Employees> Employeeslist = service.listAll();
++		List<BIA.Business.Impact.Analysis.Model.Employees> Employeeslist = service.listAll();
+ 		model.addAttribute("Employeeslist", Employeeslist);
+ 		return "Edit_Employees";
+ 	}
+@@ -87,7 +94,8 @@
+ 	 *         was on index page.
+ 	 */
+ 	@RequestMapping("/delete/{id}")
+-	public String deleteEmployees(@PathVariable(name = "id") int id) {
++	public String deleteEmployees(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		service.delete(id);
+ 		return "redirect:/manageEmployees";
+ 	}
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/DepartmentsController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/DepartmentsController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/DepartmentsController.java	(date 1585836645547)
+@@ -1,21 +1,22 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.List;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.web.bind.annotation.ModelAttribute;
+-import org.springframework.web.bind.annotation.PathVariable;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RequestMethod;
+-import org.springframework.web.servlet.ModelAndView;
+-
+ import BIA.Business.Impact.Analysis.Model.Departments;
+ import BIA.Business.Impact.Analysis.Model.Employees;
++import BIA.Business.Impact.Analysis.Model.Role;
+ import BIA.Business.Impact.Analysis.Service.DepartmentsService;
+ import BIA.Business.Impact.Analysis.Service.EmployeesService;
+-
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
++import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+-
+ import org.springframework.ui.Model;
++import org.springframework.web.bind.annotation.ModelAttribute;
++import org.springframework.web.bind.annotation.PathVariable;
++import org.springframework.web.bind.annotation.RequestMapping;
++import org.springframework.web.bind.annotation.RequestMethod;
++import org.springframework.web.servlet.ModelAndView;
++
++import javax.servlet.http.HttpServletRequest;
++import java.util.List;
+ 
+ @Controller("/departments")
+ public class DepartmentsController {
+@@ -26,14 +27,17 @@
+ 	private EmployeesService service1;
+ 
+ 	@RequestMapping("/Departmentslist")
+-	public String viewHomePage(Model model) {
++	public String viewHomePage(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<Departments> Departmentslist = service.listAll();
+ 		model.addAttribute("Departmentslist", Departmentslist);
+ 		return "Manage_Departments";
+ 	}
+ 
+ 	@RequestMapping("/newDepartment")
+-	public String showNewDepartmentsPage(Model model) {
++	public String showNewDepartmentsPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		Departments Departments = new Departments();
+ 		model.addAttribute("Departments", Departments);
+ 		List<Employees> employees = service1.listAll();
+@@ -42,13 +46,15 @@
+ 	}
+ 
+ 	@RequestMapping(value = "/saveDepartment", method = RequestMethod.POST)
+-	public String saveDepartment(@ModelAttribute("Departments") Departments Departments) {
++	public String saveDepartment(@ModelAttribute("Departments") Departments Departments, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.EMPLOYEE);
+ 		service.save(Departments);
+ 		return "redirect:/Departmentslist";
+ 	}
+ 
+ 	@RequestMapping("/editDepartment/{id}")
+-	public ModelAndView showEditDepartmentPage(@PathVariable(name = "id") String id) {
++	public ModelAndView showEditDepartmentPage(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		ModelAndView mav = new ModelAndView("Edit_Departments");
+ 		Departments Departments = service.get(id);
+ 		mav.addObject("Departments", Departments);
+@@ -56,7 +62,8 @@
+ 	}
+ 
+ 	@RequestMapping("/deleteDepartment/{id}")
+-	public String deleteDepartments(@PathVariable(name = "id") String id) {
++	public String deleteDepartments(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		service.delete(id);
+ 		return "redirect:/Departmentslist";
+ 	}
+Index: src/main/java/BIA/Business/Impact/Analysis/Model/GenerateHierarchy.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Model/GenerateHierarchy.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Model/GenerateHierarchy.java	(date 1585837158267)
+@@ -1,35 +1,31 @@
+ package BIA.Business.Impact.Analysis.Model;
+ 
+-import java.util.List;
+-
+-import javax.persistence.Column;
+-import javax.persistence.GeneratedValue;
+-import javax.persistence.GenerationType;
+-
+ import org.springframework.data.annotation.Id;
+ import org.springframework.data.mongodb.core.mapping.Document;
+ 
++import java.util.List;
++
+ @Document(collection = "GenerateHierarchy")
+ public class GenerateHierarchy {
+ 	@Id
+ 	/*
+ 	 * @GeneratedValue(strategy = GenerationType.IDENTITY)
+-	 * 
++	 *
+ 	 * @Column(name = "EmployeeId")
+ 	 */
+-	private int employeeId;
++	private String employeeId;
+ 	private String employeeName;
+-	private int reportToEmployeeId;
++	private String reportToEmployeeId;
+ 	private String product;
+ 	private String productionStep;
+ 	private String productCategory;
+ 	private String department;
+ 	private List<GenerateHierarchy> subGenerateHierarchy;
+ 
+-	public int getEmployeeId() {
++	public String getEmployeeId() {
+ 		return employeeId;
+ 	}
+-	public void setEmployeeId(int employeeId) {
++	public void setEmployeeId(String employeeId) {
+ 		this.employeeId = employeeId;
+ 	}
+ 	public String getEmployeeName() {
+@@ -38,10 +34,10 @@
+ 	public void setEmployeeName(String employeeName) {
+ 		this.employeeName = employeeName;
+ 	}
+-	public int getReportToEmployeeId() {
++	public String getReportToEmployeeId() {
+ 		return reportToEmployeeId;
+ 	}
+-	public void setReportToEmployeeId(int reportToEmployeeId) {
++	public void setReportToEmployeeId(String reportToEmployeeId) {
+ 		this.reportToEmployeeId = reportToEmployeeId;
+ 	}
+ 	public String getProduct() {
+@@ -74,5 +70,5 @@
+ 	public void setSubGenerateHierarchy(List<GenerateHierarchy> subGenerateHierarchy) {
+ 		this.subGenerateHierarchy = subGenerateHierarchy;
+ 	}
+-	
++
+ }
+Index: src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java	(date 1585837158275)
+@@ -1,11 +1,8 @@
+ package BIA.Business.Impact.Analysis.Controller;
+ 
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-import javax.servlet.http.HttpServletRequest;
+-import javax.servlet.http.HttpSession;
+-
++import BIA.Business.Impact.Analysis.Model.*;
++import BIA.Business.Impact.Analysis.Service.*;
++import BIA.Business.Impact.Analysis.Validator.RoleValidator;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+@@ -14,23 +11,15 @@
+ import org.springframework.web.bind.annotation.RequestMapping;
+ import org.springframework.web.bind.annotation.RequestMethod;
+ 
+-import BIA.Business.Impact.Analysis.Model.Departments;
+-import BIA.Business.Impact.Analysis.Model.Employees;
+-import BIA.Business.Impact.Analysis.Model.GenerateHierarchy;
+-import BIA.Business.Impact.Analysis.Model.ProductCategory;
+-import BIA.Business.Impact.Analysis.Model.ProductionSteps;
+-import BIA.Business.Impact.Analysis.Model.Products;
+-import BIA.Business.Impact.Analysis.Service.DepartmentsService;
+-import BIA.Business.Impact.Analysis.Service.EmployeesService;
+-import BIA.Business.Impact.Analysis.Service.GenerateHierarchyService;
+-import BIA.Business.Impact.Analysis.Service.ProductCategoryService;
+-import BIA.Business.Impact.Analysis.Service.ProductionStepsService;
+-import BIA.Business.Impact.Analysis.Service.ProductsService;
++import javax.servlet.http.HttpServletRequest;
++import javax.servlet.http.HttpSession;
++import java.util.ArrayList;
++import java.util.List;
+ 
+ /**
+  * 
+  * 
+- * Basically this controller is useed for handling the all the functionalities
++ * Basically this controller is used for handling the all the functionalities
+  * related generate hierarchy.
+  */
+ @Controller("/GenerateHierarchyController")
+@@ -56,7 +45,8 @@
+ 	 * @return the model string with html page name
+ 	 */
+ 	@RequestMapping("/generateHierarchy")
+-	public String generateHierarchyPage(Model model) {
++	public String generateHierarchyPage(Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		GenerateHierarchy generateHierarchy = new GenerateHierarchy();
+ 		model.addAttribute("GenerateHierarchy", generateHierarchy);
+ 		List<Employees> Employeeslist = employeeService.listAll();
+@@ -79,7 +69,9 @@
+ 	 * @return the redirect string on specific method.
+ 	 */
+ 	@RequestMapping(value = "/saveHierarchy", method = RequestMethod.POST)
+-	public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy GenerateHierarchy) {
++	public String saveEmployee(@ModelAttribute("GenerateHierarchy") GenerateHierarchy GenerateHierarchy,
++							   HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		generateHierarchyService.save(GenerateHierarchy);
+ 		return "redirect:/manageHierarchy";
+ 	}
+@@ -91,7 +83,10 @@
+ 	 * @return the model string with html page name
+ 	 */
+ 	@RequestMapping("/manageHierarchy")
+-	public String manageHierarchy(Model model) {
++	public String manageHierarchy(Model model, HttpServletRequest request) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		List<GenerateHierarchy> hierarchyList = generateHierarchyService.listAll();
+ 		model.addAttribute("hierarchyList", hierarchyList);
+ 		return "Manage_Hierarchy";
+@@ -104,7 +99,8 @@
+ 	 * @return the redirect string on specific method.
+ 	 */
+ 	@RequestMapping("/deleteHierarchy/{id}")
+-	public String deleteHierarchy(@PathVariable(name = "id") int id) {
++	public String deleteHierarchy(@PathVariable(name = "id") String id, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		generateHierarchyService.delete(id);
+ 		return "redirect:/manageHierarchy";
+ 	}
+@@ -117,7 +113,8 @@
+ 	 * @return the model string with html page name
+ 	 */
+ 	@RequestMapping("/editHierarchy/{id}")
+-	public String editHierarchy(@PathVariable(name = "id") int id, Model model) {
++	public String editHierarchy(@PathVariable(name = "id") String id, Model model, HttpServletRequest request) {
++		RoleValidator.checkUserRights(request, Role.MANAGER);
+ 		GenerateHierarchy generateHierarchy = generateHierarchyService.get(id);
+ 		model.addAttribute("GenerateHierarchy", generateHierarchy);
+ 		List<Employees> Employeeslist = employeeService.listAll();
+@@ -145,12 +142,14 @@
+ 	 */
+ 	@RequestMapping("/viewHierarchy")
+ 	public String generateHierarchy(HttpServletRequest request, Model model) {
++		String role = ((Employees)request.getSession().getAttribute("ME")).getRole().name();
++		model.addAttribute("Role", role);
+ 		List<GenerateHierarchy> generateHierarchy = generateHierarchyService.listAll();
+ 		List<GenerateHierarchy> mainHierarchyList = new ArrayList<GenerateHierarchy>();
+ 		HttpSession session = request.getSession();
+ 		Employees me = (Employees) session.getAttribute(LoginController.SESSION_ME);
+ 		for (final GenerateHierarchy parentHierarchy : generateHierarchy) {
+-			if (parentHierarchy.getEmployeeId() == me.getId()) {
++			if (parentHierarchy.getEmployeeId().equals(me.getId())) {
+ 				// if parentHierarchy is mine, add my sub-module
+ 				List<GenerateHierarchy> childHierarchyList = getSubModule(parentHierarchy.getEmployeeId(),
+ 						generateHierarchy);
+@@ -174,10 +173,10 @@
+ 	 *         here, We called this method recursively for getting the tree
+ 	 *         hierarchy
+ 	 */
+-	public List<GenerateHierarchy> getSubModule(int i, List<GenerateHierarchy> generateHierarchy) {
++	public List<GenerateHierarchy> getSubModule(String i, List<GenerateHierarchy> generateHierarchy) {
+ 		List<GenerateHierarchy> subHierarchyList = new ArrayList<GenerateHierarchy>();
+ 		for (final GenerateHierarchy child : generateHierarchy) {
+-			if (child.getReportToEmployeeId() == i) {
++			if (child.getReportToEmployeeId().equals(i)) {
+ 				subHierarchyList.add(child);
+ 			}
+ 		}
+@@ -190,4 +189,4 @@
+ 		}
+ 		return subHierarchyList;
+ 	}
+-}
+\ No newline at end of file
++}
+Index: src/main/java/BIA/Business/Impact/Analysis/Model/Departments.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/BIA/Business/Impact/Analysis/Model/Departments.java	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/java/BIA/Business/Impact/Analysis/Model/Departments.java	(date 1585835671705)
+@@ -2,6 +2,7 @@
+ 
+ import java.util.List;
+ 
++import lombok.NoArgsConstructor;
+ import org.springframework.data.annotation.Id;
+ import org.springframework.data.mongodb.core.mapping.Document;
+ 
+@@ -10,6 +11,7 @@
+ 
+ @Data
+ @AllArgsConstructor
++@NoArgsConstructor
+ @Document(collection = "Departments")
+ public class Departments {
+ 	@Id
+Index: src/main/resources/templates/Manage_Departments.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_Departments.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_Departments.html	(date 1585836645498)
+@@ -5,7 +5,12 @@
+ 	<title>Departments Manager</title>
+ </head>
+ <body>
+-	<div th:replace="header"></div>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div align="center">
+ 		<h3>Departments List</h3>
+ <!-- 		<a href="/newDepartment">Add New Department</a> <br /> -->
+@@ -33,4 +38,4 @@
+ 		</table>
+ 	</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>
+Index: src/main/resources/templates/Manage_ProductCategory.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+--- src/main/resources/templates/Manage_ProductCategory.html	(revision cffa65624f38b9908db0b38098e8c22d3c39cccf)
++++ src/main/resources/templates/Manage_ProductCategory.html	(date 1585836645535)
+@@ -5,7 +5,12 @@
+ 	<title>ProductCategory</title>
+ </head>
+ <body>
+-	<div th:replace="header"></div>
++	<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
++		<div th:replace="header"></div>
++	</div>
++	<div th:if="${Role == 'MANAGER'}">
++		<div th:replace="header_manager"></div>
++	</div>
+ 	<div align="center">
+ 		<h3>Product Category</h3>
+ 
+@@ -32,4 +37,4 @@
+ 		</table>
+ 	</div>
+ </body>
+-</html>
+\ No newline at end of file
++</html>

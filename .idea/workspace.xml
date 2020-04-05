@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="952a0ad1-f610-41aa-92fd-636244aa2d9b" name="Default Changelist" comment="first changes">
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/DepartmentsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/DepartmentsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/EmployeesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/EmployeesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ProductCategoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ProductCategoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ProductionStepsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ProductionStepsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ProductsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ProductsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ResourcesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/ResourcesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/interceptor/RootInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/interceptor/RootInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_Departments.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_Departments.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_Employees.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_Employees.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_Hierarchy.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_Hierarchy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_ProductCategory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_ProductCategory.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_ProductionSteps.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_ProductionSteps.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_Products.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_Products.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/Edit_Resourses.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/Edit_Resourses.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/GenerateHierarchy.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/GenerateHierarchy.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/header_manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/header_manager.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ZzGjXmVUu1I620BKJsgVlf6r1u" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="BIA.Business.Impact.Analysis.Exception" />
+      <recent name="BIA.Business.Impact.Analysis.Validator" />
+      <recent name="BIA.Business.Impact.Analysis.Model" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+      <recent name="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis" />
+      <recent name="$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="BusinessImpactAnalysisApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-mongodb" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="BIA.Business.Impact.Analysis.BusinessImpactAnalysisApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="952a0ad1-f610-41aa-92fd-636244aa2d9b" name="Default Changelist" comment="" />
+      <created>1585834644595</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585834644595</updated>
+      <workItem from="1585834648584" duration="12366000" />
+    </task>
+    <task id="LOCAL-00001" summary="first changes">
+      <created>1585837163775</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585837163775</updated>
+    </task>
+    <task id="LOCAL-00002" summary="first changes">
+      <created>1585837231065</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585837231065</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="first changes" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="169" y="27" key="CommitChangelistDialog2" timestamp="1585919387976">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state x="169" y="27" key="CommitChangelistDialog2/0.23.1440.803@0.23.1440.803" timestamp="1585919387976" />
+    <state x="144" y="91" key="DiffContextDialog" timestamp="1585919190643">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state x="144" y="91" key="DiffContextDialog/0.23.1440.803@0.23.1440.803" timestamp="1585919190643" />
+    <state width="1398" height="256" key="GridCell.Tab.0.bottom" timestamp="1585918868050">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.0.bottom/0.23.1440.803@0.23.1440.803" timestamp="1585918868050" />
+    <state width="1398" height="256" key="GridCell.Tab.0.center" timestamp="1585918868049">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.0.center/0.23.1440.803@0.23.1440.803" timestamp="1585918868049" />
+    <state width="1398" height="256" key="GridCell.Tab.0.left" timestamp="1585918868049">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.0.left/0.23.1440.803@0.23.1440.803" timestamp="1585918868049" />
+    <state width="1398" height="256" key="GridCell.Tab.0.right" timestamp="1585918868050">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.0.right/0.23.1440.803@0.23.1440.803" timestamp="1585918868050" />
+    <state width="1398" height="256" key="GridCell.Tab.1.bottom" timestamp="1585918893824">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.bottom/0.23.1440.803@0.23.1440.803" timestamp="1585918893824" />
+    <state width="1398" height="256" key="GridCell.Tab.1.center" timestamp="1585918893823">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.center/0.23.1440.803@0.23.1440.803" timestamp="1585918893823" />
+    <state width="1398" height="256" key="GridCell.Tab.1.left" timestamp="1585918893823">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.left/0.23.1440.803@0.23.1440.803" timestamp="1585918893823" />
+    <state width="1398" height="256" key="GridCell.Tab.1.right" timestamp="1585918893824">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.1.right/0.23.1440.803@0.23.1440.803" timestamp="1585918893824" />
+    <state width="1398" height="256" key="GridCell.Tab.2.bottom" timestamp="1585918867845">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.bottom/0.23.1440.803@0.23.1440.803" timestamp="1585918867845" />
+    <state width="1398" height="256" key="GridCell.Tab.2.center" timestamp="1585918867844">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.center/0.23.1440.803@0.23.1440.803" timestamp="1585918867844" />
+    <state width="1398" height="256" key="GridCell.Tab.2.left" timestamp="1585918867844">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.left/0.23.1440.803@0.23.1440.803" timestamp="1585918867844" />
+    <state width="1398" height="256" key="GridCell.Tab.2.right" timestamp="1585918867844">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state width="1398" height="256" key="GridCell.Tab.2.right/0.23.1440.803@0.23.1440.803" timestamp="1585918867844" />
+    <state x="320" y="166" key="Vcs.Push.Dialog.v2" timestamp="1585919091793">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state x="320" y="166" key="Vcs.Push.Dialog.v2/0.23.1440.803@0.23.1440.803" timestamp="1585919091793" />
+    <state x="247" y="35" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1585836834300">
+      <screen x="0" y="23" width="1440" height="803" />
+    </state>
+    <state x="247" y="35" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.23.1440.803@0.23.1440.803" timestamp="1585836834300" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/DepartmentsController.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>140</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>48</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>84</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>112</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/BIA/Business/Impact/Analysis/Controller/GenerateHierarchyController.java</url>
+          <line>170</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

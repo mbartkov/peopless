@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Dashboard</title>
+</head>
+
+<body>
+<div th:if="${Role == 'ADMIN' || Role == 'EMPLOYEE'}">
+	<div th:replace="header"></div>
+</div>
+<div th:if="${Role == 'MANAGER'}">
+	<div th:replace="header_manager"></div>
+</div>
+</body>
+</html>
