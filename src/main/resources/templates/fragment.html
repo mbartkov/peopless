@@ -16,7 +16,7 @@
 <section th:fragment="employ">
 	<ul>
 		<li th:each="Employ : ${EmployeesList}">
-			<span th:text="'First_name : ' + ${Employ.First_name} + ', Last_name : ' + ${Employ.Last_name} + ', Designation : ' + ${Employ.Designation} + ', Responsibility : ' + ${Employ.Responsibility} + ', Email : ' + ${Employ.Email} + ', Phone : ' + ${Employ.PhoneNo}">Main Cat</span>
+			<span th:text="'First_name : ' + ${Employ.First_name} + ', Last_name : ' + ${Employ.Last_name} + ', Designation : ' + ${Employ.Designation}">Main Cat</span>
 			<section th:include="@{fragment} :: employ" th:with="EmployeesList=${Employ.SubEmployees}"></section>
 		</li>
 	</ul>
